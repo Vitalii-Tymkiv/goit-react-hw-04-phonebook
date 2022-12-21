@@ -6,6 +6,7 @@ import { ContactList } from './ContactList';
 import { Filter } from './Filter';
 import { showAlertMessage } from 'ui/AlertMessage/AlertMessage';
 import { defaultContacts } from 'data/contacts';
+import { InfoMessage } from './InfoMessage/infoMessage';
 
 export const App = () => {
   const [contacts, setContacts] = useState(() => {
@@ -49,13 +50,18 @@ export const App = () => {
           onCheckContact={handleCheckContact}
         />
       </SectionWrapper>
+
       <SectionWrapper title="Contact List">
-        <Filter value={filter} onChange={handleChangeFilter} />
-        {contacts.length > 0 && (
-          <ContactList
-            contacts={getVisibleContacts()}
-            onDelete={handleDeleteContact}
-          />
+        {contacts.length > 0 ? (
+          <>
+            <Filter value={filter} onChange={handleChangeFilter} />
+            <ContactList
+              contacts={getVisibleContacts()}
+              onDelete={handleDeleteContact}
+            />
+          </>
+        ) : (
+          <InfoMessage message={'Contact List is empty'} />
         )}
       </SectionWrapper>
     </Container>
